@@ -1,13 +1,46 @@
----
-title: Home
-summary: "The home page of sun."
 
----
+<html>
+<head>
+<title>Un exemple simple de formulaire</title>title>
+</head>
+<body>
 
-<div id="intro">
-    <p>This is my first web.
-    <p>I am a student in Telecom Paristech.
-        <a href="[[projects]]">there></a> to .</p>
-    <p>d
-    <p>d
-</div>
+<H1>Exemple simple de formulaire utilisant l'interface CGI</H1>
+<p>
+Ceci est un formulaire simple qui illustre l'utilisation de
+la bibliothèque de fonctions CGI permettant de traiter
+les informations saisies dans les zones de dialogue.
+<hr>
+<form method="post" action="formulaire.cgi">
+<H2>Questionnaire</H2>
+Quel est votre prénom ? <input name="prenom">
+<p>
+Quel est votre nom ? <input name="nom">
+<p>
+Quelle est votre couleur favorite ?
+  <select name="couleur">
+  <option selected>blanc
+  <option>jaune
+  <option>orange
+  <option>rouge
+  <option>vert
+  <option>bleu
+  <option>violet
+  <option>noir
+  </select>
+<p>
+Aimez vous l'informatique ?
+<input type="radio" name="choix" value="oui" checked> Oui
+ou
+<input type="radio" name="choix" value="non"> Non
+<p>
+
+Cliquez sur <input type="submit" value="Valider"> pour soumettre votre requ&ecir
+c;te.,
+sinon <input type="reset" value="Annuler">
+</form>
+<p>
+<address> XY / xgan@enst.fr</address>
+$Date: 16/01/2014 $
+<body>
+</html>
