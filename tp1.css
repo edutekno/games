@@ -1,0 +1,24 @@
+<style>
+        #myVideo{
+            left:0px;
+            top:0px;
+            }
+        #myCanvas1{
+            position:absolute;
+            left:55px;
+            top:130px;
+        }
+        #myCanvas2{
+            position:absolute;
+            left:425px;
+            top:150px;
+        }
+        #myCanvas3{
+            position:absolute;
+            left:175px;
+            top:275px;
+        }
+</style>
+
+
+
