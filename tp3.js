@@ -223,12 +223,12 @@
    if (bufferUpdated == true) {
      if (index < segments.length) {
        //  loads next segment when time is close to the end of the last loaded segment
-       if ((videoElement.currentTime - lastTime) >= segCheck) {
+        //if ((videoElement.currentTime - lastTime) >= segCheck) {
          playSegment(segments[index].getAttribute("mediaRange").toString(), file);
          lastTime = videoElement.currentTime;
          curIndex.textContent = index + 1;// display current index
          index++;
-       }
+       //}
      } else {
        videoElement.removeEventListener("timeupdate", fileChecks, false);
      }
