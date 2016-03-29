@@ -195,7 +195,7 @@
             log(xhr.response);
             videoSource.appendBuffer(new Uint8Array(xhr.response));
             // Wait for the update complete event before continuing
-            //videoSource.addEventListener("update",updateFunct, false);
+            videoSource.addEventListener("update",updateFunct, false);
         } catch (e) {
             log('Exception while appending initialization content', e);
         }
