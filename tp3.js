@@ -8,6 +8,7 @@
   //  elements
  var videoElement = document.getElementById('myVideo');
  var playButton = document.getElementById("load");
+ var continueButton = document.getElementById("continue");
  //  description of initialization segment, and approx segment lengths
  var initialization;
  var segDuration;
@@ -30,6 +31,8 @@
  var lastMpd = "";
  var vTime = document.getElementById("curTime");
  var requestId = 0;
+
+ var vcontinue = false;
   // Click event handler for load button
  playButton.addEventListener("click", function () {
    if (videoElement.paused == true) {
@@ -46,6 +49,12 @@
      videoElement.pause();
    }
   }, false);
+  // Click event handler for continue button
+  continueButton.addEventListener("click", function(){
+    if(!vcontinue){
+        vcontinue = "true";
+    }
+  })
   // Do a little trickery, start video when you click the video element
  videoElement.addEventListener("click", function () {
    playButton.click();
@@ -136,8 +145,9 @@
  function setupVideo() {
    clearLog(); // Clear console log
     // create the media source
-   mediaSource = new (window.MediaSource || window.WebKitMediaSource)();
-   var url = URL.createObjectURL(mediaSource);
+   //mediaSource = new (window.MediaSource || window.WebKitMediaSource)();
+   mediaSource = new MediaSource();
+   var url = window.URL.createObjectURL(mediaSource);
    videoElement.pause();
    videoElement.src = url;
    videoElement.width = width;
@@ -147,7 +157,7 @@
 
    mediaSource.addEventListener('sourceopen', function (e) {
      try {
-       videoSource = mediaSource.addSourceBuffer('video/mp4');
+       videoSource = mediaSource.addSourceBuffer('video/mp4; codecs="mp4a.40.2,avc1.64001f"');
        initVideo(initialization, file);
      } catch (e) {
        log('Exception calling addSourceBuffer for video', e);
@@ -182,18 +192,19 @@
           if (xhr.readyState == xhr.DONE) { // wait for video to load
            // add response to buffer
            try {
-             videoSource.appendBuffer(new Uint8Array(xhr.response));
-             // Wait for the update complete event before continuing
-             videoSource.addEventListener("update",updateFunct, false);
-            } catch (e) {
-             log('Exception while appending initialization content', e);
-           }
-         }
-       }, false);
-     } catch (e) {
-       log(e);
-     }
-   } else {
+            log(xhr.response);
+            videoSource.appendBuffer(new Uint8Array(xhr.response));
+            // Wait for the update complete event before continuing
+            //videoSource.addEventListener("update",updateFunct, false);
+        } catch (e) {
+            log('Exception while appending initialization content', e);
+        }
+        }
+    }, false);
+    } catch (e) {
+    log(e);
+    }
+} else {
      return // No value for range or url
    }
  }
@@ -207,6 +218,7 @@
  }
   //  Play our file segments
  function getStarted(url) {
+     log("video get started!");
     //  Start by loading the first segment of media
    playSegment(segments[index].getAttribute("mediaRange").toString(), url);
     // start showing video time
@@ -223,12 +235,15 @@
    if (bufferUpdated == true) {
      if (index < segments.length) {
        //  loads next segment when time is close to the end of the last loaded segment
-        //if ((videoElement.currentTime - lastTime) >= segCheck) {
+       if ((videoElement.currentTime - lastTime) >= segCheck) {
+         //if(vcontinue){
          playSegment(segments[index].getAttribute("mediaRange").toString(), file);
          lastTime = videoElement.currentTime;
          curIndex.textContent = index + 1;// display current index
          index++;
-       //}
+         vcontinue = !vcontinue;
+         //}
+       }
      } else {
        videoElement.removeEventListener("timeupdate", fileChecks, false);
      }
@@ -247,6 +262,7 @@
          if (xhr.readyState == xhr.DONE) { //wait for video to load
            //  Calculate when to get next segment based on time of current one
              segCheck = (timeToDownload(range) * .8).toFixed(3); // use .8 as fudge factor
+             //segCheck = timeToDownload(range).toFixed(3); // use .8 as fudge factor
              segLength.textContent = segCheck;
            // Add received content to the buffer
            try {

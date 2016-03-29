@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en">
     <head>
         <link rel="stylesheet" href="tp3.css">
     </head>
@@ -10,12 +10,14 @@
     </hgroup>
 
     <label>.mpd file location:
-      <input type="text" id="filename" value="01_Dishonored2_dash.mpd" />
+      <input type="text" id="filename" value="01_Dishonored2_dash.xml" />
     </label>
     <button id="load">Play</button>
     <br />
+    <button id="continue">Continue</button>
+    <br />
     <!-- some areas to display info and content -->
-    <span id="Span1"><a href="01_Dishonored2_dash.mpd" target="_blank">The <em>MPD</em> document used</a></span>
+    <span id="Span1"><a href="01_Dishonored2_dash.xml" target="_blank">The <em>MPD</em> document used</a></span>
         
     <span id="myspan"><br /></span>
     <div id="curInfo"></div>
@@ -30,8 +32,22 @@
       <video id="myVideo" autoplay="autoplay" poster="" controls>No video available</video>
       <br />
         This example uses HTML5 video, Media Source Extensions, mp4, and MPEG-DASH files.
-        <br />
-    </section>
+      <br />
+      <canvas id="canvas" width="500" height="16"></canvas>
+      <br>
+  </section>
+  <section id="section3">
+  <br />
+  <progress id="introProgressbar" value="0" max="100"></progress>
+  <br />
+  <progress id="chose1Progressbar" value="0" max="100"></progress>
+  <br />
+  <progress id="chose2Progressbar" value="0" max="100"></progress>
+  <br />
+  <progress id="chose3Progressbar" value="0" max="100"></progress>
+  <br />
+  </section>
     <script type="text/javascript" src="tp3.js"></script>
+    <script type="text/javascript" src="canvas.js"></script>
     </body> 
 </html>
