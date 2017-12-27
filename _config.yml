@@ -24,12 +24,18 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
 github_username:  jekyll
 
+
+# Assets
+sass:
+  sass_dir: _sass
+  style: :compressed
 # Build settings
 markdown: kramdown
 #theme: minima
 #theme: jekyll-theme-minimal
 plugins:
   - jekyll-feed
+  - jekyll-paginate
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
