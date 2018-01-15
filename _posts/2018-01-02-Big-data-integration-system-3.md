@@ -3,7 +3,7 @@ layout: post
 title:  "Big Data Integration Systems 3"
 date:   2018-01-02 22:00:17 +0000
 author: xgan
-categories: big data, machine learning
+categories: machine learning
 ---
 ## Summary
 > - Data stream
